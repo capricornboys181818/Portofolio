@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070a09">
+  <meta name="description" content="Itsriels18 is a web developer building digital experiences that inspire.">
+  <title>Itsriels18 — Web Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070a09;
+      --panel: #0b100e;
+      --panel-2: #0d1411;
+      --line: rgba(166, 211, 187, .12);
+      --muted: #89958d;
+      --text: #eff5f0;
+      --green: #45e58a;
+      --green-soft: #9dffc2;
+      --mono: "DM Mono", monospace;
+      --sans: "Manrope", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 76% 9%, rgba(17, 79, 53, .15), transparent 35rem),
+        radial-gradient(ellipse at 5% 63%, rgba(15, 63, 43, .11), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .page-shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .mono, .eyebrow, .nav-links, .brand, .project-meta, .tech-name { font-family: var(--mono); }
+
+    .topbar {
+      height: 58px;
+      margin-top: 14px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(8, 13, 11, .82);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+    }
+    .brand { font-size: 14px; font-weight: 500; letter-spacing: -.06em; }
+    .brand-mark { color: var(--green); }
+    .nav-links { display: flex; gap: 27px; color: #aab5ad; font-size: 10px; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover, .nav-links a.active { color: var(--green); }
+    .availability {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 11px; border: 1px solid var(--line);
+      border-radius: 20px; color: #d9e5dc; font: 9px var(--mono);
+    }
+    .availability i, .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); }
+    .menu-toggle { display: none; border: 0; background: none; color: var(--text); font-size: 22px; }
+
+    .hero {
+      min-height: 526px;
+      margin-top: 20px;
+      position: relative;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(160, 215, 184, .08);
+      border-radius: 14px;
+      background:
+        linear-gradient(90deg, rgba(5, 10, 8, .98) 0%, rgba(5, 10, 8, .93) 34%, rgba(5, 10, 8, .32) 64%, rgba(5, 10, 8, .16) 100%),
+        linear-gradient(0deg, #070a09 0%, transparent 30%),
+        url("image/DSC05759.JPG") center 35% / cover;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(133, 224, 169, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(133, 224, 169, .035) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: linear-gradient(90deg, transparent, #000 67%);
+    }
+    .hero::after {
+      content: ""; position: absolute; width: 360px; height: 360px;
+      right: 11%; top: 7%; border: 1px solid rgba(69, 229, 138, .32);
+      border-radius: 50%; box-shadow: 0 0 45px rgba(69, 229, 138, .11), inset 0 0 45px rgba(69, 229, 138, .08);
+      pointer-events: none;
+    }
+    .hero-content { z-index: 2; padding: 56px 0 60px 7%; max-width: 460px; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; text-transform: uppercase; color: var(--green); letter-spacing: .08em; font-size: 9px; }
+    .eyebrow::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); }
+    h1 { margin: 18px 0 14px; font-size: clamp(42px, 5.4vw, 68px); line-height: .99; letter-spacing: -.065em; font-weight: 800; }
+    h1 span { color: var(--green); }
+    .hero-copy { max-width: 340px; margin: 0; color: #a2aea6; font-size: 13px; line-height: 1.9; }
+    .hero-actions { display: flex; gap: 10px; margin-top: 24px; }
+    .button {
+      min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 0 16px; border-radius: 7px; border: 1px solid var(--line);
+      font-size: 10px; font-weight: 700; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      cursor: pointer;
+    }
+    .button:hover { transform: translateY(-2px); border-color: rgba(69, 229, 138, .6); }
+    .button-primary { color: #06120b; background: linear-gradient(110deg, #44d77f, #4bf29b); border-color: transparent; box-shadow: 0 5px 24px rgba(44, 219, 117, .18); }
+    .button-primary:hover { box-shadow: 0 8px 28px rgba(44, 219, 117, .3); }
+    .button-ghost { color: #dce6df; background: rgba(6, 10, 8, .48); }
+    .arrow { font-size: 14px; line-height: 1; }
+    .socials { display: flex; align-items: center; gap: 13px; margin-top: 28px; color: #839087; font: 9px var(--mono); }
+    .socials a { color: #b7c3ba; transition: color .2s; }
+    .socials a:hover { color: var(--green); }
+    .hero-code {
+      position: absolute; z-index: 3; right: 5%; bottom: 13%;
+      width: 266px; padding: 14px 16px 13px;
+      border: 1px solid rgba(69, 229, 138, .28); border-radius: 9px;
+      background: rgba(4, 18, 12, .8); box-shadow: 0 15px 50px rgba(0, 0, 0, .4), 0 0 24px rgba(38, 217, 114, .1);
+      backdrop-filter: blur(12px); color: #b7c9bd; font: 9px/1.9 var(--mono);
+    }
+    .code-title { margin-bottom: 7px; color: var(--green); font-size: 8px; letter-spacing: .08em; }
+    .code-key { color: #83a391; }
+    .code-value { color: #d9f6e3; }
+    .code-cursor { display: inline-block; width: 5px; height: 10px; margin-left: 4px; background: var(--green); vertical-align: -2px; animation: blink 1s steps(2) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .scroll-note { position: absolute; z-index: 2; left: 24px; bottom: 22px; color: #87958b; font: 8px var(--mono); writing-mode: vertical-rl; }
+
+    section { scroll-margin-top: 96px; }
+    .about {
+      display: grid; grid-template-columns: .82fr 1.18fr; gap: 50px;
+      align-items: center; padding: 48px 6.5%; margin: 18px 0 54px;
+      border: 1px solid var(--line); border-radius: 13px;
+      background: linear-gradient(115deg, rgba(15, 25, 20, .8), rgba(8, 13, 11, .72));
+    }
+    .about-photo {
+      position: relative; min-height: 245px; border-radius: 10px; overflow: hidden;
+      background:
+        linear-gradient(0deg, rgba(7, 10, 9, .18), rgba(7, 10, 9, .1)),
+        url("image/DSC05759.JPG") center 36% / cover;
+      border: 1px solid rgba(124, 181, 146, .2);
+    }
+    .experience-tag {
+      position: absolute; right: -12px; bottom: 19px; padding: 11px 14px;
+      border: 1px solid rgba(69, 229, 138, .28); border-radius: 8px;
+      background: rgba(5, 17, 11, .92); box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+      color: #aab8ae; font: 9px/1.6 var(--mono);
+    }
+    .experience-tag strong { display: block; color: var(--green); font: 700 22px var(--sans); }
+    h2 { margin: 7px 0 11px; font-size: clamp(24px, 3vw, 32px); line-height: 1.15; letter-spacing: -.05em; }
+    h2 span { color: var(--green); }
+    .section-copy { margin: 0; color: #98a49b; font-size: 11px; line-height: 1.9; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 19px; }
+    .stat { padding: 11px 12px; border: 1px solid var(--line); border-radius: 7px; background: rgba(3, 9, 6, .35); }
+    .stat strong { display: block; color: #f2fff6; font-size: 15px; letter-spacing: -.04em; }
+    .stat span { display: block; margin-top: 2px; color: #849188; font: 8px var(--mono); }
+
+    .section-head { display: flex; align-items: end; justify-content: space-between; margin-bottom: 17px; }
+    .section-head h2 { margin-bottom: 0; font-size: 25px; }
+    .section-head .eyebrow { font-size: 8px; }
+    .services { margin-bottom: 48px; }
+    .service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .service-card {
+      min-height: 162px; padding: 17px; border: 1px solid var(--line); border-radius: 9px;
+      background: linear-gradient(145deg, rgba(14, 23, 18, .95), rgba(7, 12, 9, .9));
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .service-card:hover, .project-card:hover { transform: translateY(-4px); border-color: rgba(69, 229, 138, .38); }
+    .icon-box {
+      width: 30px; height: 30px; display: grid; place-items: center;
+      border: 1px solid rgba(69, 229, 138, .24); border-radius: 7px;
+      background: rgba(29, 106, 63, .16); color: var(--green); font-size: 14px;
+    }
+    .service-card h3 { margin: 13px 0 6px; font-size: 11px; }
+    .service-card p { margin: 0; color: #87948b; font-size: 9px; line-height: 1.8; }
+    .service-arrow { float: right; margin-top: 4px; color: var(--green); font-size: 16px; }
+
+    .tech-section { margin-bottom: 48px; }
+    .tech-section h2 { font-size: 22px; margin-bottom: 14px; }
+    .tech-list {
+      display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px;
+      padding: 13px; border: 1px solid var(--line); border-radius: 9px;
+      background: rgba(11, 17, 14, .74);
+    }
+    .tech {
+      min-height: 68px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      border-radius: 7px; color: #c6d1c9; transition: background .2s, color .2s;
+    }
+    .tech:hover { background: rgba(69, 229, 138, .08); color: var(--green-soft); }
+    .tech-icon { font-size: 21px; font-weight: 800; line-height: 1; }
+    .tech-name { color: #89968e; font-size: 8px; }
+    .html { color: #ed6943; } .css { color: #4a9cf4; } .js { color: #f0d44c; } .ts { color: #54a6e6; }
+    .react { color: #64d5ec; } .node { color: #87c76b; } .mongo { color: #79c76d; } .figma { color: #e888bd; }
+    .project-section { margin-bottom: 47px; }
+    .small-link { color: var(--green); font: 9px var(--mono); }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .project-card {
+      overflow: hidden; border: 1px solid var(--line); border-radius: 9px;
+      background: linear-gradient(145deg, rgba(15, 23, 19, .95), rgba(8, 12, 10, .98));
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .project-image {
+      height: 153px; position: relative; overflow: hidden; display: grid; place-items: center;
+      background-color: #101a15; border-bottom: 1px solid var(--line);
+    }
+    .project-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(7, 10, 9, .18), transparent 60%); }
+    .project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .project-card:hover .project-image img { transform: scale(1.04); }
+    .project-image.dashboard { background: linear-gradient(135deg, #09291c, #101922); }
+    .project-image.store { background: linear-gradient(140deg, #ddd9cf, #919892); }
+    .project-image.bank { background: linear-gradient(135deg, #0d2430, #10141b); }
+    .project-fallback {
+      position: absolute; inset: 12px; display: flex; flex-direction: column; justify-content: center;
+      border: 1px solid rgba(150, 220, 178, .2); border-radius: 5px; padding: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .28); font-size: 8px;
+    }
+    .project-fallback strong { font-size: 12px; }
+    .project-fallback .mock-bar { height: 5px; margin: 9px 0; border-radius: 4px; background: rgba(193, 223, 202, .3); }
+    .project-fallback .mock-bar.short { width: 58%; }
+    .mock-chart { height: 34px; margin-top: 8px; border-bottom: 1px solid rgba(69, 229, 138, .7); background: linear-gradient(160deg, transparent 47%, rgba(69, 229, 138, .35) 48%, transparent 50%); }
+    .project-details { padding: 14px; }
+    .project-details h3 { margin: 0 0 5px; font-size: 12px; }
+    .project-details p { min-height: 32px; margin: 0; color: #8e9a91; font-size: 9px; line-height: 1.8; }
+    .project-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; color: var(--green); font-size: 8px; }
+    .project-meta a { color: #a7b3aa; font-size: 13px; }
+
+    .clients { margin-bottom: 48px; }
+    .client-list { min-height: 72px; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 12px 20px; border: 1px solid var(--line); border-radius: 9px; background: rgba(11, 17, 14, .68); }
+    .client { color: #d5ded8; font-weight: 700; font-size: 13px; letter-spacing: -.04em; opacity: .85; }
+    .client.google { font-weight: 500; font-size: 17px; }
+    .client.amazon { font-family: Georgia, serif; font-size: 16px; }
+    .client.netflix { font-family: Impact, sans-serif; letter-spacing: .04em; }
+    .client.slack { font-size: 13px; }
+    .client.vercel { letter-spacing: -.07em; }
+
+    .contact {
+      position: relative; overflow: hidden; display: grid; grid-template-columns: .9fr 1.1fr; gap: 55px;
+      padding: 38px 6%; margin-bottom: 22px; border: 1px solid var(--line); border-radius: 12px;
+      background:
+        radial-gradient(ellipse at 95% 100%, rgba(19, 112, 65, .21), transparent 40%),
+        linear-gradient(120deg, rgba(11, 19, 14, .97), rgba(7, 12, 9, .92));
+    }
+    .contact::after { content: ""; position: absolute; right: -100px; top: -130px; width: 320px; height: 320px; border: 1px solid rgba(69, 229, 138, .12); border-radius: 50%; box-shadow: 0 0 0 25px rgba(69,229,138,.025), 0 0 0 55px rgba(69,229,138,.018); pointer-events: none; }
+    .contact h2 { font-size: 28px; }
+    .contact-info p { max-width: 350px; color: #98a49b; font-size: 10px; line-height: 1.9; }
+    .contact-links { display: grid; gap: 9px; margin-top: 20px; color: #c3cec6; font: 9px var(--mono); }
+    .contact-links a { display: flex; align-items: center; gap: 9px; }
+    .contact-links span { color: var(--green); font-size: 13px; }
+    .contact-form { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-content: center; }
+    .contact-form input, .contact-form textarea {
+      width: 100%; padding: 11px 12px; color: var(--text); outline: none;
+      border: 1px solid rgba(166, 211, 187, .15); border-radius: 6px; background: rgba(4, 9, 6, .56);
+      font-size: 9px; transition: border-color .2s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(69, 229, 138, .6); }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color: #748178; }
+    .contact-form textarea { grid-column: 1 / -1; min-height: 90px; resize: vertical; }
+    .contact-form .button { grid-column: 1 / -1; width: 100%; }
+    .form-note { grid-column: 1 / -1; min-height: 14px; margin: -5px 0 0; color: var(--green-soft); font: 9px var(--mono); text-align: center; }
+    footer { display: flex; justify-content: space-between; align-items: center; padding: 13px 2px 22px; color: #77847b; font: 8px var(--mono); }
+    .footer-socials { display: flex; gap: 12px; color: #aebbb2; font-size: 12px; }
+
+    @media (max-width: 760px) {
+      .page-shell { width: min(100% - 30px, 600px); }
+      .topbar { height: 54px; margin-top: 10px; padding: 0 14px; }
+      .menu-toggle { display: block; }
+      .availability { margin-left: auto; margin-right: 14px; }
+      .nav-links {
+        display: none; position: absolute; top: 60px; left: 0; right: 0; padding: 16px;
+        flex-direction: column; gap: 14px; border: 1px solid var(--line); border-radius: 10px;
+        background: rgba(8, 13, 11, .98); font-size: 12px;
+      }
+      .nav-links.open { display: flex; }
+      .hero {
+        min-height: 570px;
+        grid-template-columns: 1fr;
+        background:
+          linear-gradient(90deg, rgba(5, 10, 8, .96), rgba(5, 10, 8, .78) 58%, rgba(5, 10, 8, .48)),
+          linear-gradient(0deg, #070a09 0%, transparent 30%),
+          url("image/DSC05759.JPG") 66% center / cover;
+      }
+      .hero::after { width: 280px; height: 280px; right: -5%; top: 10%; }
+      .hero-content { align-self: start; padding: 56px 7% 0; max-width: 390px; }
+      h1 { font-size: clamp(36px, 8vw, 50px); }
+      .hero-code { width: 230px; right: 5%; bottom: 9%; }
+      .scroll-note { display: none; }
+      .about { grid-template-columns: 1fr; gap: 23px; padding: 25px; margin-bottom: 43px; }
+      .about-photo { min-height: 250px; margin-right: 10px; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .tech-list { grid-template-columns: repeat(5, 1fr); }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-image { height: 190px; }
+      .project-details p { min-height: 0; }
+      .client-list { flex-wrap: wrap; justify-content: center; gap: 15px 25px; padding: 18px 10px; }
+      .contact { grid-template-columns: 1fr; gap: 23px; padding: 28px 23px; }
+    }
+    @media (max-width: 430px) {
+      .page-shell { width: calc(100% - 22px); }
+      .hero { min-height: 565px; }
+      .hero-content { padding-top: 45px; }
+      .hero-copy { max-width: 290px; }
+      .hero-code { bottom: 7%; right: 4%; width: 218px; }
+      .section-head h2 { font-size: 22px; }
+      .service-grid { gap: 8px; }
+      .service-card { padding: 13px; min-height: 160px; }
+      .tech-list { gap: 2px; padding: 8px 4px; }
+      .tech-name { font-size: 7px; }
+      .stats { gap: 6px; }
+      .stat { padding: 9px 7px; }
+      .stat span { font-size: 7px; }
+      .contact-form { grid-template-columns: 1fr; }
+      .contact-form input, .contact-form textarea, .contact-form .button, .form-note { grid-column: 1; }
+      footer { flex-wrap: wrap; gap: 9px; }
+      .footer-socials { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Itsriels18 home"><span class="brand-mark">◇</span> Itsriels18</a>
+      <nav class="nav-links" id="primary-navigation" aria-label="Main navigation">
+        <a class="active" href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="availability" href="#contact"><i></i> Let's Talk <span>↗</span></a>
+      <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+    </header>
+
+    <main>
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <div class="eyebrow">Web Developer</div>
+          <h1 id="hero-title">I Build Digital<br>Experiences<br>That <span>Inspire.</span></h1>
+          <p class="hero-copy">I craft high-performance, scalable and beautiful web applications with modern technologies.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projects">View My Work <span class="arrow">↗</span></a>
+            <a class="button button-ghost" href="#contact">Download CV <span class="arrow">↓</span></a>
+          </div>
+          <div class="socials">
+            <span>◉ &nbsp; SOCIAL LINKS</span>
+            <a href="https://github.com/" aria-label="GitHub">GH</a>
+            <a href="https://www.linkedin.com/in/mochamad-ariel-nurfadillah-53b84b373/" aria-label="LinkedIn">in</a>
+            <a href="https://x.com/" aria-label="X">X</a>
+          </div>
+        </div>
+        <div class="hero-code" aria-label="Developer code card">
+          <div class="code-title">▰ &nbsp; HELLO, I'M Itsriels18</div>
+          <div><span class="code-key">const</span> role = <span class="code-value">"Web Developer"</span></div>
+          <div><span class="code-key">const</span> passion = <span class="code-value">"Building Digital Solutions"</span></div>
+          <div><span class="code-key">const</span> status = <span class="code-value">"Available for projects"</span><span class="code-cursor"></span></div>
+        </div>
+        <span class="scroll-note">SCROLL TO EXPLORE &nbsp; ↓</span>
+      </section>
+
+      <section class="about" id="about" aria-labelledby="about-title">
+        <div class="about-photo" role="img" aria-label="Portrait of Itsriels18">
+          <div class="experience-tag"><strong>2+</strong>Years of<br>Experience</div>
+        </div>
+        <div>
+          <div class="eyebrow">About Me</div>
+          <h2 id="about-title">Passionate Developer<br><span>Focused on Quality &amp; Impact</span></h2>
+          <p class="section-copy">I'm a Web Developer with 3 years of experience building modern web applications. I specialize in creating seamless, user-friendly experiences that solve real-world problems. With a focus on clean code and thoughtful design, I bring ideas to life through reliable and scalable digital products.</p>
+          <div class="stats">
+            <div class="stat"><strong>5+</strong><span>Projects Completed</span></div>
+            <div class="stat"><strong>3</strong><span>Happy Clients</span></div>
+            <div class="stat"><strong>3+</strong><span>Years Experience</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="services" id="services" aria-labelledby="services-title">
+        <div class="section-head"><div><div class="eyebrow">Services</div><h2 id="services-title">What I Can Do For You</h2></div></div>
+        <div class="service-grid">
+          <article class="service-card"><div class="icon-box">⌘</div><h3>Web Development</h3><p>Building fast, responsive and scalable web applications with modern technologies.</p><span class="service-arrow">↗</span></article>
+          <article class="service-card"><div class="icon-box">▣</div><h3>Responsive Design</h3><p>Crafting beautiful, mobile-first designs that deliver seamless experiences everywhere.</p><span class="service-arrow">↗</span></article>
+          <article class="service-card"><div class="icon-box">◉</div><h3>Performance Optimization</h3><p>Improving speed, SEO and overall performance to make the web feel effortless.</p><span class="service-arrow">↗</span></article>
+          <article class="service-card"><div class="icon-box">▧</div><h3>UI/UX Design</h3><p>Creating intuitive and engaging user interfaces and experiences.</p><span class="service-arrow">↗</span></article>
+        </div>
+      </section>
+
+      <section class="tech-section" id="skills" aria-labelledby="skills-title">
+        <div class="eyebrow">My Tech Stack</div><h2 id="skills-title">Technologies I Work With</h2>
+        <div class="tech-list">
+          <div class="tech"><span class="tech-icon html">▣</span><span class="tech-name">HTML</span></div>
+          <div class="tech"><span class="tech-icon css">▣</span><span class="tech-name">CSS</span></div>
+          <div class="tech"><span class="tech-icon js">JS</span><span class="tech-name">JavaScript</span></div>
+          <div class="tech"><span class="tech-icon ts">TS</span><span class="tech-name">TypeScript</span></div>
+          <div class="tech"><span class="tech-icon react">⚛</span><span class="tech-name">React</span></div>
+          <div class="tech"><span class="tech-icon node">⬡</span><span class="tech-name">Node.js</span></div>
+          <div class="tech"><span class="tech-icon figma">◈</span><span class="tech-name">Figma</span></div>
+          <div class="tech"><span class="tech-icon" style="color:#83d7e8">◉</span><span class="tech-name">Tailwind</span></div>
+        </div>
+      </section>
+
+      <section class="project-section" id="projects" aria-labelledby="projects-title">
+        <div class="section-head">
+          <div><div class="eyebrow">Featured Projects</div><h2 id="projects-title">Selected Work</h2></div>
+          <a class="small-link" href="https://github.com/mochammadarielnurfadillah">View All Projects ↗</a>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-image dashboard" role="img" aria-label="SiMaungBoba project preview"><div class="project-fallback"><strong>SiMaungBoba</strong><div class="mock-bar"></div><div class="mock-bar short"></div><div class="mock-chart"></div></div></div>
+            <div class="project-details"><h3>SiMaungBoba</h3><p>A modern analytics platform with real-time data visualization and reporting.</p><div class="project-meta"><span>React · Node.js · MySQL</span><a href="https://github.com/" aria-label="View SimaungBoba">↗</a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-image store" role="img" aria-label="Karang Taruna Waru project preview"><div class="project-fallback" style="background:#f1f0eb;color:#172018"><strong>Karang Taruna Wau</strong><div class="mock-bar"></div><div class="mock-bar short"></div></div></div>
+            <div class="project-details"><h3>Karang Taruna Waru</h3><p>A community-driven platform for local engagement and information sharing.</p><div class="project-meta"><span>React · Node.js · PostgreSQL</span><a href="https://github.com/" aria-label="View Karang Taruna Wau">↗</a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-image bank" role="img" aria-label="Fintech landing page project preview"><div class="project-fallback"><strong>Fast. Secure.<br>Reliable Banking.</strong><div class="mock-bar"></div><div class="mock-bar short"></div></div></div>
+            <div class="project-details"><h3>Fintech Landing Page</h3><p>A sleek landing page for a digital banking service built to convert.</p><div class="project-meta"><span>React · Tailwind · Framer</span><a href="https://github.com/" aria-label="View Fintech Landing Page">↗</a></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="clients" id="testimonials" aria-labelledby="clients-title">
+        <div class="eyebrow">Trusted By</div><h2 id="clients-title">Clients &amp; Companies</h2>
+        <div class="client-list" aria-label="Companies"><span class="client MaungBoba">SiMaungBoba</span><span class="client">Karang Taruna Wau</span><span class="client">PT.XYZ</span><span class="client amazon">amazon</span><span class="client netflix">NETFLIX</span><span class="client slack">✣ slack</span><span class="client vercel">▲ Vercel</span></div>
+      </section>
+
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="contact-info">
+          <div class="eyebrow">Get In Touch</div>
+          <h2 id="contact-title">Let's Build Something<br><span>Amazing Together.</span></h2>
+          <p>Have a project in mind or just want to say hello? My inbox is always open. Let's create something great together.</p>
+          <div class="contact-links">
+            <a href="mailto:mochammadarielnurfadillah@gmail.com"><span>✉</span> mochammadarielnurfadillah@gmail.com</a>
+            <a href="https://www.linkedin.com/in/mochamad-ariel-nurfadillah-53b84b373/"><span>in</span> linkedin.com/in/Itsriels18</a>
+            <a href="#contact"><span>⌖</span> Indonesia · Available worldwide</a>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <input name="name" type="text" placeholder="Your Name" aria-label="Your name" required>
+          <input name="email" type="email" placeholder="Your Email" aria-label="Your email" required>
+          <input name="subject" type="text" placeholder="Subject" aria-label="Subject" required>
+          <textarea name="message" placeholder="Your Message..." aria-label="Your message" required></textarea>
+          <button class="button button-primary" type="submit">Send Message <span class="arrow">↗</span></button>
+          <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#home"><span class="brand-mark">◇</span> Itsriels18</a>
+      <span>© <span id="year"></span> Itsriels18. All rights reserved.</span>
+      <div class="footer-socials"><a href="https://github.com/mochammadarielnurfadillah" aria-label="GitHub">◉</a><a href="https://linkedin.com/" aria-label="LinkedIn">in</a></div>
+    </footer>
+  </div>
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#primary-navigation");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navigation.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    });
+
+    navigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navigation.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation");
+      });
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+    document.querySelector("#contact-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const values = new FormData(form);
+      const subject = encodeURIComponent(values.get("subject"));
+      const body = encodeURIComponent(`Name: ${values.get("name")}\nEmail: ${values.get("email")}\n\n${values.get("message")}`);
+      document.querySelector("#form-note").textContent = "Opening your email app…";
+      window.location.href = `mailto:mochammadarielnurfadillah@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
